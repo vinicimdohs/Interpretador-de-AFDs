@@ -1,6 +1,6 @@
 # Interpretador-de-AFDs
 
-Apartir de um .json que representa o automato e um .txt que representa as palavras, vamos te devolver se as palavras foram aceitas ou não
+A partir de um .json que representa o automato e um .txt que representa as palavras, vamos te devolver se as palavras foram aceitas ou não
 
 ## Instalação
 Com o git já instalado, clone o projeto em sua máquina
@@ -27,4 +27,8 @@ Dentro da pasta do programa abra o seu terminal e rode o seguinte comando
 ```bash
 node index.js pathing.json pathing.txt
 ```
-Lembre-se de substituir os pathings pelo caminho dos seus arquivos e caso tiver um \ troque por \\
+Lembre-se de substituir os pathings pelo caminho ex:
+```bash
+node index.js D:\\DevSpace\\Interpretador-de-AFDs\\JSONrepo\\endWith1.json D:\\DevSpace\\Interpretador-de-AFDs\\txtRepo\\word.txt
+```
+
