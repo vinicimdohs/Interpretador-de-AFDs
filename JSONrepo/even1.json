@@ -1,0 +1,16 @@
+{
+    "language" : "Aceita qualquer palavra com numero par de 1",
+    "alphabet" : ["0","1"],
+    "states" : ["even","odd"],
+    "even":{
+        "start" : true,
+        "end" : true,
+        "path" : ["even","odd"] 
+    },
+    "odd":{
+        "start" : false,
+        "end" : false,
+        "path" : ["odd","even"]
+    }
+}
+  
