@@ -1,63 +1,56 @@
-// fs = require('fs');
-// const path = require('path');
+fs = require('fs');
+const path = require('path');
+const filePathings = [process.argv[2],process.argv[3]];
 
-// const filePathings = [process.argv[2],process.argv[3]];
+main(filePathings);
 
-// if(filePathings){
-//     console.log()
-//     // filePathings.forEach(filePathing => {
 
-//     //     const ext = path.extname(filePathing);
-//     //     console.log("path :",ext);
+function main(filePathings){
+    if(filePathings){
+        const jsonObj =  readFile(filePathings[0]);
+        const txtArray =  readFile(filePathings[1]);
 
-//     //     fs.readFile(filePathing, 'utf8' , (err, data) => {
-//     //         if (err) {
-//     //           console.error(err)
-//     //           return
-//     //         }
-//     //         console.log(data)
-//     //     })
-//     // }) 
-// }
-
-jsonObj = {
-    languague : "Aceita qualquer palavra que termina em 1",
-    alphabet : ["0","1"],
-    states : ["q0","q1"],
-    q0:{
-        start : true,
-        end : false,
-        path : ["q0","q1"] //path está relacionado com alfabeto
-    },
-    q1:{
-        start : false,
-        end : true,
-        path : ["q0","q1"]
+        return processWord(jsonObj,txtArray)
     }
-  }
-  
-// jsonObj = {
-//     languague : "Aceita qualquer palavra com numero par de 1",
-//     alphabet : ["0","1"],
-//     states : ["even","odd"],
-//     even:{
-//         start : true,
-//         end : true,
-//         path : ["even","odd"] //path está relacionado com alfabeto
-//     },
-//     odd:{
-//         start : false,
-//         end : false,
-//         path : ["odd","even"]
-//     }
-//   }
 
-  txtArray = [[0,0,0,0],[0,0,1,0],[0,1,1,1],[0,1,0,0],[1,1,1,1]];
-  
-  processWord(jsonObj,txtArray)
-  
+    console.log("sem caminhos");
+}
+
+function readFile(filePathing){
+    const ext = path.extname(filePathing);
+    try{
+        const data = fs.readFileSync(filePathing, 'utf8')
+        if(ext == ".json")return JSON.parse(data);
+        if(ext == ".txt")return formatTxtArray( Array.from(data));
+    }catch(err){
+        console.error(err);
+    }
+}
+
+function formatTxtArray(txtArray){
+    let txtArrayFormatted = [];
+    let line = [];
+    let j = 0;
+    for(let i = 0;i <= txtArray.length - 1;i++){
+        if(txtArray[i] == "\r"){
+            txtArrayFormatted.push(line);
+            line = [];
+            i += 2;
+            j = 0;
+        }
+        
+        line[j] = txtArray[i];
+        j++;
+
+        if( txtArray.length - 1  == i)txtArrayFormatted.push(line)
+    }
+
+    return txtArrayFormatted;
+}
+
   function processWord(jsonObj,txtArray){
     const jsonStates = verifyJsonStates(jsonObj);
+    let afdAnswers = [];
     txtArray.forEach(word => {
         let currentState = jsonStates.startState[0];
         const wordLength = word.length;
@@ -70,8 +63,9 @@ jsonObj = {
             
             if(characterPositionRelatedToWord == wordLength - 1)isValid = currentState.end == true;
         })
-        console.log("isValid :",isValid)
+        afdAnswers.push({passed : isValid,word : word});
     });
+    printFinalValue(jsonObj.language,afdAnswers);
   }
   
   function verifyJsonStates(jsonObj){
@@ -97,4 +91,12 @@ jsonObj = {
         }
     });
     return newState;
+  }
+
+  function printFinalValue(language,afdAnswers){
+      console.log("\n------------------------------------------------ \n")
+    console.log(language+"\n");
+    afdAnswers.forEach(afdAnswer => {
+        console.log(`${afdAnswer.word} -> ${afdAnswer.passed ? 'Passed' : 'Rejected'} \n`);
+    })
   }
