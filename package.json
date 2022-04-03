@@ -1,0 +1,19 @@
+{
+    "name": "interpretador-de-afds",
+    "version": "1.0.0",
+    "description": "Interprator de afds ",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vinicimdohs/Interpretador-de-AFDs.git"
+    },
+    "author": "Vinicius Fernandes de Paula",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/vinicimdohs/Interpretador-de-AFDs/issues"
+    },
+    "homepage": "https://github.com/vinicimdohs/Interpretador-de-AFDs#readme"
+  }
