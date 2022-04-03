@@ -42,7 +42,7 @@ jsonObj = {
   function processWord(jsonObj,txtArray){
     const jsonStates = verifyJsonStates(jsonObj);
     let currentState = jsonStates.startState[0];
-    console.log("jsonStates :",jsonStates);
+    console.log("initial currentstate :",currentState);
     txtArray.forEach(word => {
         const wordLength = word.length;
         let isValid;
@@ -51,11 +51,10 @@ jsonObj = {
             const characterPositionRelatedToAlphabet = jsonObj.alphabet.indexOf(character.toString());
   
             currentState = changeCurrentState(characterPositionRelatedToAlphabet,currentState,jsonStates);
-  
-            if(characterPositionRelatedToWord == wordLength - 1){
-                
-            }
+            
+            if(characterPositionRelatedToWord == wordLength - 1)isValid = currentState.end == true;
         })
+        console.log("isValid :",isValid)
     });
   }
   
@@ -69,7 +68,7 @@ jsonObj = {
     }
     
     return {startState,endState}
-  } 
+  }
   
   function changeCurrentState(wordPosition,currentState,jsonStates){
     let newState;
